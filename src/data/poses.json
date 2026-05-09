@@ -1,0 +1,39 @@
+{
+  "poses": [
+    {
+      "id": 1,
+      "englishName": "Phone",
+      "sanskritName": "Akarna Dhanurasana",
+      "difficulty": 1,
+      "description": "Sit with legs wide. Grip your left foot and bring it toward your ear like you're holding a phone."
+    },
+    {
+      "id": 2,
+      "englishName": "Monkey",
+      "sanskritName": "Vatayanasana",
+      "difficulty": 1,
+      "description": "Spread your legs wide and raise your arms. Imagine you're a dancing monkey full of energy!"
+    },
+    {
+      "id": 3,
+      "englishName": "Cowboy",
+      "sanskritName": "Vatayanasana",
+      "difficulty": 2,
+      "description": "Stand with legs wide apart. Bend your knees and spread your arms like a cowboy on a horse."
+    },
+    {
+      "id": 4,
+      "englishName": "Dinosaur",
+      "sanskritName": "Virabhadrasana I",
+      "difficulty": 2,
+      "description": "Lunge forward with one leg. Raise your arms and roar like a mighty dinosaur!"
+    },
+    {
+      "id": 5,
+      "englishName": "Cow",
+      "sanskritName": "Bitilasana",
+      "difficulty": 3,
+      "description": "On your hands and knees. Arch your back and look up like a friendly cow."
+    }
+  ]
+}
