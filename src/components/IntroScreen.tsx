@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 
 interface IntroScreenProps {
-  onStart: () => void
+  onStart: (mode: 'solo' | 'duo') => void
 }
 
 const variants = {
@@ -46,15 +46,26 @@ export default function IntroScreen({ onStart }: IntroScreenProps) {
         </p>
       </div>
 
-      <motion.button
-        className="btn btn-primary"
-        style={{ fontSize: 22, padding: '18px 56px', borderRadius: 60 }}
-        onClick={onStart}
-        whileTap={{ scale: 0.95 }}
-        whileHover={{ scale: 1.04 }}
-      >
-        START
-      </motion.button>
+      <div style={{ display: 'flex', gap: 16, justifyContent: 'center' }}>
+        <motion.button
+          className="btn btn-primary"
+          style={{ fontSize: 18, padding: '16px 36px', borderRadius: 60 }}
+          onClick={() => onStart('solo')}
+          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.04 }}
+        >
+          1 PLAYER
+        </motion.button>
+        <motion.button
+          className="btn btn-primary"
+          style={{ fontSize: 18, padding: '16px 36px', borderRadius: 60 }}
+          onClick={() => onStart('duo')}
+          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.04 }}
+        >
+          👥 2 PLAYERS
+        </motion.button>
+      </div>
     </motion.div>
   )
 }

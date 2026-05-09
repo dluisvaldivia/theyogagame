@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion'
+import { useCountdownSound } from '../hooks/useCountdownSound'
 
 interface HoldCounterProps {
   seconds: number
@@ -25,6 +26,7 @@ const screenVariants = {
 }
 
 export default function HoldCounter({ seconds, isPaused, onPause, onPlay }: HoldCounterProps) {
+  useCountdownSound(seconds, isPaused)
   const style = getCounterStyle(Math.max(1, seconds))
 
   return (

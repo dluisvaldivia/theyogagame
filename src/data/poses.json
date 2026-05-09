@@ -18,22 +18,308 @@
       "id": 3,
       "englishName": "Cowboy",
       "sanskritName": "Vatayanasana",
-      "difficulty": 2,
+      "difficulty": 1,
       "description": "Stand with legs wide apart. Bend your knees and spread your arms like a cowboy on a horse."
     },
     {
       "id": 4,
       "englishName": "Dinosaur",
       "sanskritName": "Virabhadrasana I",
-      "difficulty": 2,
+      "difficulty": 1,
       "description": "Lunge forward with one leg. Raise your arms and roar like a mighty dinosaur!"
     },
     {
       "id": 5,
       "englishName": "Cow",
       "sanskritName": "Bitilasana",
-      "difficulty": 3,
+      "difficulty": 1,
       "description": "On your hands and knees. Arch your back and look up like a friendly cow."
+    },
+    {
+      "id": 6,
+      "englishName": "Unicorn",
+      "sanskritName": "Gomukhasana",
+      "difficulty": 2,
+      "description": "Sit tall and stack your knees. Reach one arm up and one behind your back like a magical unicorn!"
+    },
+    {
+      "id": 7,
+      "englishName": "Siren",
+      "sanskritName": "Eka Pada Rajakapotasana",
+      "difficulty": 2,
+      "description": "Sit with one leg bent forward and stretch back. Reach your arms wide like a siren calling from the sea."
+    },
+    {
+      "id": 8,
+      "englishName": "Kayak",
+      "sanskritName": "Navasana",
+      "difficulty": 2,
+      "description": "Balance on your bottom with legs and arms lifted. Paddle your arms like you're in a kayak on a river!"
+    },
+    {
+      "id": 9,
+      "englishName": "Angel",
+      "sanskritName": "Vrksasana",
+      "difficulty": 2,
+      "description": "Stand on one leg and open your arms wide like a beautiful angel with giant wings."
+    },
+    {
+      "id": 10,
+      "englishName": "Egg",
+      "sanskritName": "Apanasana",
+      "difficulty": 2,
+      "description": "Lie on your back and hug your knees to your chest. Curl up tight like a cozy egg!"
+    },
+    {
+      "id": 11,
+      "englishName": "Lion",
+      "sanskritName": "Simhasana",
+      "difficulty": 2,
+      "description": "Kneel tall, open your mouth wide, and stick out your tongue. ROAR like the king of the jungle!"
+    },
+    {
+      "id": 12,
+      "englishName": "Indian",
+      "sanskritName": "Sukhasana",
+      "difficulty": 1,
+      "description": "Sit cross-legged with your hands on your knees. Breathe deeply and sit still like a wise yogi."
+    },
+    {
+      "id": 13,
+      "englishName": "Pigeon",
+      "sanskritName": "Eka Pada Rajakapotasana",
+      "difficulty": 2,
+      "description": "Slide one leg forward and stretch the other back. Rest forward and coo like a pigeon."
+    },
+    {
+      "id": 14,
+      "englishName": "Cat",
+      "sanskritName": "Marjaryasana",
+      "difficulty": 1,
+      "description": "Get on your hands and knees and arch your back up high. Stretch and yawn like a cat waking up!"
+    },
+    {
+      "id": 15,
+      "englishName": "Flower",
+      "sanskritName": "Vikasitakamalasana",
+      "difficulty": 2,
+      "description": "Sit and thread your arms under your bent knees. Balance and bloom open like a beautiful flower!"
+    },
+    {
+      "id": 16,
+      "englishName": "Bamboo",
+      "sanskritName": "Ardha Chandrasana",
+      "difficulty": 2,
+      "description": "Balance on one leg and stretch out flat. Reach your arm up tall and straight like bamboo!"
+    },
+    {
+      "id": 17,
+      "englishName": "Diamond",
+      "sanskritName": "Vajrasana",
+      "difficulty": 1,
+      "description": "Kneel and sit back on your heels. Sit up straight and shine like a sparkling diamond!"
+    },
+    {
+      "id": 18,
+      "englishName": "Screw",
+      "sanskritName": "Parivrtta Sukhasana",
+      "difficulty": 2,
+      "twoPlayers": true,
+      "description": "Sit back-to-back with your partner and twist toward each other. Turn and reach like two screws winding together!"
+    },
+    {
+      "id": 19,
+      "englishName": "Sleeping Mummy",
+      "sanskritName": "Savasana",
+      "difficulty": 1,
+      "description": "Lie flat on your back with arms crossed on your chest. Stay perfectly still like a sleeping mummy in a pyramid!"
+    },
+    {
+      "id": 20,
+      "englishName": "Paddling",
+      "sanskritName": "Navasana",
+      "difficulty": 2,
+      "twoPlayers": true,
+      "description": "Sit facing your partner with feet touching and hold hands. Lean back and paddle together like rowing a boat!"
+    },
+    {
+      "id": 21,
+      "englishName": "Sledge",
+      "sanskritName": "Parvrtta Chakrasana",
+      "difficulty": 3,
+      "twoPlayers": true,
+      "description": "One person sits on the other's back as they hold a flat position. Zoom downhill together like a sledge in the snow!"
+    },
+    {
+      "id": 22,
+      "englishName": "Flower Together",
+      "sanskritName": "Makrasana",
+      "difficulty": 2,
+      "twoPlayers": true,
+      "description": "Sit back-to-back with your partner and link arms. Lean on each other and bloom like one big flower!"
+    },
+    {
+      "id": 23,
+      "englishName": "Partner Boat",
+      "sanskritName": "Rajah Parivartanasana",
+      "difficulty": 3,
+      "twoPlayers": true,
+      "description": "Sit facing your partner and press feet together with legs lifted. Hold hands and balance like two sailors in a boat!"
+    },
+    {
+      "id": 24,
+      "englishName": "Silent Tree",
+      "sanskritName": "Ashva Sanchalanasana",
+      "difficulty": 2,
+      "twoPlayers": true,
+      "description": "Stand side by side and balance on one leg each. Press together and grow tall like two trees in the forest!"
+    },
+    {
+      "id": 25,
+      "englishName": "Mountain",
+      "sanskritName": "Tadasana",
+      "difficulty": 1,
+      "description": "Stand up straight with feet together and arms at your sides. Rise tall and strong like a mighty mountain!"
+    },
+    {
+      "id": 26,
+      "englishName": "Eagle",
+      "sanskritName": "Garudasana",
+      "difficulty": 3,
+      "description": "Wrap one arm under the other and one leg around the other. Balance and soar like a powerful eagle!"
+    },
+    {
+      "id": 27,
+      "englishName": "Butterfly",
+      "sanskritName": "Baddha Konasana",
+      "difficulty": 2,
+      "description": "Sit and bring the soles of your feet together. Flap your knees up and down like butterfly wings!"
+    },
+    {
+      "id": 28,
+      "englishName": "Star",
+      "sanskritName": "Utthitahasta Padasana",
+      "difficulty": 2,
+      "description": "Stand with legs wide and arms out. Spread your fingers and shine bright like a star!"
+    },
+    {
+      "id": 29,
+      "englishName": "Clamp",
+      "sanskritName": "Paschimottanasana",
+      "difficulty": 2,
+      "description": "Sit with legs straight out and fold forward to reach your toes. Squeeze tight like a clamp holding two things together!"
+    },
+    {
+      "id": 30,
+      "englishName": "Airplane",
+      "sanskritName": "Virabhadrasana III",
+      "difficulty": 3,
+      "description": "Balance on one leg and lean your body forward with arms out like wings. Zoom through the sky like an airplane!"
+    },
+    {
+      "id": 31,
+      "englishName": "Turtle",
+      "sanskritName": "Kurmasana",
+      "difficulty": 3,
+      "description": "Sit and slide your arms under your bent legs, folding forward. Hide in your shell like a turtle!"
+    },
+    {
+      "id": 32,
+      "englishName": "Dance",
+      "sanskritName": "Natarajasana",
+      "difficulty": 3,
+      "description": "Stand tall and sway your arms gracefully. Move slowly and beautifully like a dancer on a stage!"
+    },
+    {
+      "id": 33,
+      "englishName": "Seagull",
+      "sanskritName": "Upavistha Konasana",
+      "difficulty": 2,
+      "description": "Sit with legs spread wide and reach forward. Stretch your wings and call like a seagull at the beach!"
+    },
+    {
+      "id": 34,
+      "englishName": "Bow",
+      "sanskritName": "Dhanurasana",
+      "difficulty": 3,
+      "description": "Lie on your tummy, bend your knees, and reach back to grab your ankles. Arch up like a bow ready to shoot!"
+    },
+    {
+      "id": 35,
+      "englishName": "Willow",
+      "sanskritName": "Parvrtta Parsvakonasana",
+      "difficulty": 3,
+      "description": "Stand on one leg and sweep your arms gently overhead. Sway softly like a willow tree in the breeze!"
+    },
+    {
+      "id": 36,
+      "englishName": "Warrior",
+      "sanskritName": "Virabhadrasana II",
+      "difficulty": 2,
+      "description": "Lunge wide and stretch both arms out to the sides. Stand strong and brave like a warrior ready for battle!"
+    },
+    {
+      "id": 37,
+      "englishName": "Oyster",
+      "sanskritName": "Paschimottanasana",
+      "difficulty": 2,
+      "description": "Sit with legs straight and fold forward to reach your toes. Open and close like an oyster hiding a pearl!"
+    },
+    {
+      "id": 38,
+      "englishName": "Cobra",
+      "sanskritName": "Bhujangasana",
+      "difficulty": 2,
+      "description": "Lie on your tummy and press your hands down to lift your chest up. Rise up and hiss like a cobra!"
+    },
+    {
+      "id": 39,
+      "englishName": "Lotus",
+      "sanskritName": "Padmasana",
+      "difficulty": 2,
+      "description": "Sit cross-legged with each foot on the opposite thigh. Float peacefully like a lotus flower on a pond."
+    },
+    {
+      "id": 40,
+      "englishName": "Boat",
+      "sanskritName": "Navasana",
+      "difficulty": 3,
+      "description": "Sit and lift your legs and arms up off the floor. Balance and rock like a little boat on the waves!"
+    },
+    {
+      "id": 41,
+      "englishName": "Rock",
+      "sanskritName": "Balasana",
+      "difficulty": 1,
+      "description": "Kneel and fold forward with arms by your sides. Rest still and quiet like a smooth round rock."
+    },
+    {
+      "id": 42,
+      "englishName": "Triangle",
+      "sanskritName": "Utthita Trikonasana",
+      "difficulty": 1,
+      "description": "Stand with legs wide, reach one arm down to your shin and the other up. Make a giant triangle!"
+    },
+    {
+      "id": 43,
+      "englishName": "Downward Facing Dog",
+      "sanskritName": "Adhomukha Svanasana",
+      "difficulty": 2,
+      "description": "Push up into an upside-down V shape with hands and feet on the floor. Stretch like a dog waking up!"
+    },
+    {
+      "id": 44,
+      "englishName": "Frog",
+      "sanskritName": "Malasana",
+      "difficulty": 2,
+      "description": "Squat low with feet wide and hands together. Bounce and ribbit like a frog on a lily pad!"
+    },
+    {
+      "id": 45,
+      "englishName": "Tree",
+      "sanskritName": "Vrksasana",
+      "difficulty": 1,
+      "description": "Stand on one foot and press the other to your leg. Grow tall and reach your branches to the sky!"
     }
   ]
 }

@@ -10,17 +10,58 @@ import CelebrationFlash from './components/CelebrationFlash'
 import FinalScreen from './components/FinalScreen'
 
 type GamePhase = 'intro' | 'pose' | 'countdown' | 'holding' | 'celebrate' | 'final'
+type GameMode = 'solo' | 'duo'
+type Pose = typeof posesData.poses[number]
 
-const CELEBRATION_EMOJIS = ['🎉', '🥳', '⭐', '🌟', '💪', '🎊', '👏', '🏆', '✨', '🙌']
+const CELEBRATION_EMOJIS = ['🎉', '🥳', '⭐', '🌟', '💪', '👏', '🏆', '✨']
 
 function randomEmoji() {
   return CELEBRATION_EMOJIS[Math.floor(Math.random() * CELEBRATION_EMOJIS.length)]
 }
 
-const poses = posesData.poses
+function pickRandomFrom<T>(arr: T[]): T {
+  return arr[Math.floor(Math.random() * arr.length)]
+}
+
+function selectGamePoses(mode: GameMode): Pose[] {
+  const allPoses = posesData.poses
+  const used = new Set<number>()
+
+  function pick(pool: Pose[]): Pose {
+    const available = pool.filter(p => !used.has(p.id))
+    const pose = pickRandomFrom(available)
+    used.add(pose.id)
+    return pose
+  }
+
+  if (mode === 'solo') {
+    const soloPool = allPoses.filter(p => !('twoPlayers' in p && p.twoPlayers))
+    const easy = soloPool.filter(p => p.difficulty === 1)
+    const medium = soloPool.filter(p => p.difficulty === 2)
+    const hard = soloPool.filter(p => p.difficulty === 3)
+    return [pick(easy), pick(easy), pick(medium), pick(medium), pick(hard)]
+  }
+
+  // duo: 2 two-player poses + 1 easy + 1 medium + 1 hard single-player, sorted by difficulty
+  const twoPlayerPool = allPoses.filter(p => 'twoPlayers' in p && p.twoPlayers)
+  const singlePool = allPoses.filter(p => !('twoPlayers' in p && p.twoPlayers))
+  const easy = singlePool.filter(p => p.difficulty === 1)
+  const medium = singlePool.filter(p => p.difficulty === 2)
+  const hard = singlePool.filter(p => p.difficulty === 3)
+
+  const selected = [
+    pick(twoPlayerPool),
+    pick(twoPlayerPool),
+    pick(easy),
+    pick(medium),
+    pick(hard),
+  ]
+  return [...selected].sort((a, b) => a.difficulty - b.difficulty)
+}
 
 export default function App() {
   const [phase, setPhase] = useState<GamePhase>('intro')
+  const [poses, setPoses] = useState<Pose[]>(() => selectGamePoses('solo'))
   const [poseIndex, setPoseIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
   const [holdSeconds, setHoldSeconds] = useState(0)
@@ -41,7 +82,6 @@ export default function App() {
 
   const advanceToNextPose = useCallback(() => {
     clearTimer()
-    // Show celebration emoji first
     setCelebrationEmoji(randomEmoji())
     setPhase('celebrate')
     const nextIndex = poseIndexRef.current + 1
@@ -59,7 +99,7 @@ export default function App() {
         setPhase('pose')
       }
     }, 1400)
-  }, [])
+  }, [poses.length])
 
   const startInterval = useCallback(() => {
     holdSecondsRef.current = 0
@@ -69,15 +109,16 @@ export default function App() {
       holdSecondsRef.current += 1
       setHoldSeconds(holdSecondsRef.current)
       if (holdSecondsRef.current >= 20) {
-        advanceToNextPose()
+        clearTimer()
+        setTimeout(() => advanceToNextPose(), 1000)
       }
     }, 1000)
   }, [advanceToNextPose])
 
-  // Handlers
-  function handleStart() {
+  function handleStart(mode: GameMode) {
     poseIndexRef.current = 0
     setPoseIndex(0)
+    setPoses(selectGamePoses(mode))
     setPhase('pose')
   }
 
