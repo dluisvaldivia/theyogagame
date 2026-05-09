@@ -48,6 +48,12 @@ function buildBeepSchedule(): number[] {
 
 const BEEP_TIMES = buildBeepSchedule()
 
+// Call this inside a user-gesture handler (tap/click) to unlock the audio
+// context on mobile before the countdown starts.
+export function primeAudioContext() {
+  if (window.Tone) window.Tone.start()
+}
+
 // Module-level thud state — survives HoldCounter unmounting when celebrate phase starts
 let moduleThudSynth: ToneSynth | null = null
 let moduleThudTimer: ReturnType<typeof setTimeout> | null = null

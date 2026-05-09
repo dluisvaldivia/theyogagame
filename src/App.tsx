@@ -6,6 +6,7 @@ import IntroScreen from './components/IntroScreen'
 import PoseCard from './components/PoseCard'
 import CountdownScreen from './components/CountdownScreen'
 import HoldCounter from './components/HoldCounter'
+import { primeAudioContext } from './hooks/useCountdownSound'
 import CelebrationFlash from './components/CelebrationFlash'
 import FinalScreen from './components/FinalScreen'
 
@@ -123,6 +124,7 @@ export default function App() {
   }
 
   function handlePoseReady() {
+    primeAudioContext()
     setBgImageVisible(false)
     setPhase('countdown')
   }
