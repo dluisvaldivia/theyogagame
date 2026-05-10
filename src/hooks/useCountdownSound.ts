@@ -1,25 +1,6 @@
 import { useEffect, useRef } from 'react'
-
-// Tone.js is loaded from CDN — declare minimal types we need
-declare global {
-  interface Window {
-    Tone?: {
-      start: () => Promise<void>
-      getContext: () => { state: string }
-      Synth: new (options: object) => ToneSynth
-      gainToDb: (gain: number) => number
-      now: () => number
-      Transport: { cancel: (time?: number) => void }
-      getTransport: () => { cancel: (time?: number) => void }
-    }
-  }
-}
-
-interface ToneSynth {
-  triggerAttackRelease: (note: string | number, duration: string | number, time?: number) => void
-  toDestination: () => ToneSynth
-  dispose: () => void
-}
+import * as Tone from 'tone'
+import type { Synth } from 'tone'
 
 // cubic ease-in: perceptible early acceleration, builds strongly through the back half
 function cubicEaseIn(t: number): number {
@@ -48,18 +29,17 @@ function buildBeepSchedule(): number[] {
 
 const BEEP_TIMES = buildBeepSchedule()
 
-// Call this inside a user-gesture handler (tap/click) to unlock the audio
-// context on mobile before the countdown starts.
-export function primeAudioContext() {
-  if (window.Tone) window.Tone.start()
+// Call this inside a user-gesture handler (tap/click) to unlock the AudioContext
+// on mobile before the countdown starts. Returns a Promise for callers that await it.
+export function primeAudioContext(): Promise<void> {
+  return Tone.start()
 }
 
 // Module-level thud state — survives HoldCounter unmounting when celebrate phase starts
-let moduleThudSynth: ToneSynth | null = null
+let moduleThudSynth: Synth | null = null
 let moduleThudTimer: ReturnType<typeof setTimeout> | null = null
 
-function scheduleThud(Tone: NonNullable<Window['Tone']>, fireAt: number) {
-  // Cancel any leftover thud from a previous pose
+function scheduleThud(fireAt: number) {
   if (moduleThudTimer) clearTimeout(moduleThudTimer)
   moduleThudSynth?.dispose()
 
@@ -69,10 +49,8 @@ function scheduleThud(Tone: NonNullable<Window['Tone']>, fireAt: number) {
     volume: Tone.gainToDb(0.18),
   }).toDestination()
   moduleThudSynth = synth
-  // duration=0.9s holds full volume; release=0.6s fades out → total 1.5s
   synth.triggerAttackRelease(120, 0.9, fireAt)
 
-  // Dispose well after the 1.5s note finishes
   const wallMsUntilFire = (fireAt - Tone.now()) * 1000
   moduleThudTimer = setTimeout(() => {
     moduleThudSynth?.dispose()
@@ -88,52 +66,38 @@ function cancelThud() {
 }
 
 export function useCountdownSound(seconds: number, isPaused: boolean) {
-  const synthRef = useRef<ToneSynth | null>(null)
+  const synthRef = useRef<Synth | null>(null)
   const scheduledRef = useRef(false)
-  const toneLoadedRef = useRef(false)
 
-  // Load Tone.js from CDN once
-  useEffect(() => {
-    if (window.Tone) { toneLoadedRef.current = true; return }
-    const script = document.createElement('script')
-    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js'
-    script.onload = () => { toneLoadedRef.current = true }
-    document.head.appendChild(script)
-  }, [])
-
-  // When seconds reaches 1, schedule the full 20-second beep + thud sequence
+  // When seconds reaches 1, schedule the full 20-second beep + thud sequence.
+  // AudioContext is already running because primeAudioContext() was awaited on
+  // the LET'S GO tap — no .then() wrapper needed.
   useEffect(() => {
     if (seconds !== 1) return
     if (scheduledRef.current) return
-    if (!toneLoadedRef.current || !window.Tone) return
+    scheduledRef.current = true
 
-    const Tone = window.Tone
-    Tone.start().then(() => {
-      scheduledRef.current = true
-      const now = Tone.now() + 0.05
+    const now = Tone.now() + 0.05
 
-      // Beep synth — square-wave tick
-      const beepSynth = new Tone.Synth({
-        oscillator: { type: 'square' },
-        envelope: { attack: 0.003, decay: 0.03, sustain: 0, release: 0.003 },
-        volume: Tone.gainToDb(0.03),
-      }).toDestination()
-      synthRef.current = beepSynth
+    const beepSynth = new Tone.Synth({
+      oscillator: { type: 'square' },
+      envelope: { attack: 0.003, decay: 0.03, sustain: 0, release: 0.003 },
+      volume: Tone.gainToDb(0.03),
+    }).toDestination()
+    synthRef.current = beepSynth
 
-      // Schedule every beep — pitch rises on the same cubic ease-in as BPM
-      for (const t of BEEP_TIMES) {
-        const progress = Math.min(t / 20, 1)
-        const eased = cubicEaseIn(progress)
-        const hz = 200 + (900 - 200) * eased
-        beepSynth.triggerAttackRelease(hz, '64n', now + t)
-      }
+    for (const t of BEEP_TIMES) {
+      const progress = Math.min(t / 20, 1)
+      const eased = cubicEaseIn(progress)
+      const hz = 200 + (900 - 200) * eased
+      beepSynth.triggerAttackRelease(hz, '64n', now + t)
+    }
 
-      // Audio starts at seconds=1, so 19 more seconds = wall-clock second 20
-      scheduleThud(Tone, now + 19)
-    })
+    // Audio starts at seconds=1, so 19 more seconds = wall-clock second 20
+    scheduleThud(now + 19)
   }, [seconds])
 
-  // Cancel beep synth when paused; cancel everything if paused
+  // Cancel beep synth when paused; cancel thud too if paused mid-sequence
   useEffect(() => {
     if (!isPaused && seconds !== 0) return
     if (!scheduledRef.current) return

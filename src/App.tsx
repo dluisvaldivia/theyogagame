@@ -123,8 +123,8 @@ export default function App() {
     setPhase('pose')
   }
 
-  function handlePoseReady() {
-    primeAudioContext()
+  async function handlePoseReady() {
+    await primeAudioContext()
     setBgImageVisible(false)
     setPhase('countdown')
   }
