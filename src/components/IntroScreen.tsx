@@ -66,6 +66,26 @@ export default function IntroScreen({ onStart }: IntroScreenProps) {
           👥 2 PLAYERS
         </motion.button>
       </div>
+
+      <a
+        href="https://dluisvaldivia.github.io/DVPortfolio/"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          position: 'absolute',
+          bottom: 16,
+          left: 0,
+          right: 0,
+          textAlign: 'center',
+          fontSize: 13,
+          color: 'rgba(255,255,255,0.55)',
+          textDecoration: 'none',
+          letterSpacing: '0.02em',
+          fontWeight: 500,
+        }}
+      >
+        Made by Danny Valdivia
+      </a>
     </motion.div>
   )
 }

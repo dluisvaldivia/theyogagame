@@ -48,6 +48,7 @@ body {
 
 /* Screen wrapper — used by every screen component */
 .screen {
+  position: relative;
   width: 100%;
   display: flex;
   flex-direction: column;
