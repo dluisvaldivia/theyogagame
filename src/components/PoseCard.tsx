@@ -22,10 +22,23 @@ const variants = {
   exit: { opacity: 0, x: -80, transition: { duration: 0.3, ease: 'easeIn' as const } },
 }
 
-function Stars({ count }: { count: number }) {
+const LEVEL_CONFIG = {
+  1: { label: 'Easy', color: '#22c55e', pct: 33 },
+  2: { label: 'Medium', color: '#eab308', pct: 66 },
+  3: { label: 'Hard', color: '#ef4444', pct: 100 },
+} as const
+
+function LevelBar({ difficulty }: { difficulty: 1 | 2 | 3 }) {
+  const cfg = LEVEL_CONFIG[difficulty]
   return (
-    <div className="stars">
-      {'⭐'.repeat(count)}{'☆'.repeat(3 - count)}
+    <div className="level-bar-wrap">
+      <span className="level-label" style={{ color: cfg.color, textAlign: 'center' }}>{cfg.label}</span>
+      <div className="level-bar-track">
+        <div
+          className="level-bar-fill"
+          style={{ width: `${cfg.pct}%`, background: cfg.color }}
+        />
+      </div>
     </div>
   )
 }
@@ -34,20 +47,22 @@ export default function PoseCard({ pose, poseImage, poseNumber, totalPoses, onRe
   return (
     <motion.div
       className="screen"
+      role="region"
+      aria-label={`Pose ${poseNumber} of ${totalPoses}: ${pose.englishName}`}
       variants={variants}
       initial="initial"
       animate="animate"
       exit="exit"
     >
-      <div className="card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
-        <span className="progress-pill">Pose {poseNumber} of {totalPoses}</span>
+      <div className="card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'clamp(6px, 1.4vh, 12px)' }}>
+        <span className="progress-pill">{poseNumber} / {totalPoses}</span>
 
         <img
           src={poseImage}
-          alt={pose.englishName}
+          alt={`${pose.englishName} pose`}
           style={{
             width: '100%',
-            maxHeight: '38vh',
+            maxHeight: '50%',
             objectFit: 'contain',
             borderRadius: 16,
             background: '#f8f6ff',
@@ -56,10 +71,10 @@ export default function PoseCard({ pose, poseImage, poseNumber, totalPoses, onRe
 
         <h2
           style={{
-            fontSize: 'clamp(28px, 8vw, 38px)',
+            fontSize: 'clamp(24px, 7vw, 36px)',
             fontWeight: 900,
             color: '#1a1a2e',
-            margin: '4px 0 0',
+            margin: 0,
             textAlign: 'center',
             lineHeight: 1.1,
           }}
@@ -69,7 +84,7 @@ export default function PoseCard({ pose, poseImage, poseNumber, totalPoses, onRe
 
         <p
           style={{
-            fontSize: 14,
+            fontSize: 13,
             fontStyle: 'italic',
             color: '#888',
             margin: 0,
@@ -79,15 +94,15 @@ export default function PoseCard({ pose, poseImage, poseNumber, totalPoses, onRe
           {pose.sanskritName}
         </p>
 
-        <Stars count={pose.difficulty} />
+        <LevelBar difficulty={pose.difficulty as 1 | 2 | 3} />
 
         <p
           style={{
-            fontSize: 15,
+            fontSize: 14,
             color: '#555',
             textAlign: 'center',
-            margin: '4px 0 8px',
-            lineHeight: 1.5,
+            margin: 0,
+            lineHeight: 1.4,
           }}
         >
           {pose.description}
@@ -95,12 +110,12 @@ export default function PoseCard({ pose, poseImage, poseNumber, totalPoses, onRe
 
         <motion.button
           className="btn btn-primary"
-          style={{ width: '100%', fontSize: 18, borderRadius: 14 }}
+          style={{ width: '100%', fontSize: 18, borderRadius: 14, marginTop: 4 }}
           onClick={onReady}
           whileTap={{ scale: 0.97 }}
           whileHover={{ scale: 1.02 }}
         >
-          LET'S GO! 🚀
+          GO▶️
         </motion.button>
       </div>
     </motion.div>

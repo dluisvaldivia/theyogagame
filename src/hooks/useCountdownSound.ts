@@ -39,14 +39,14 @@ export function primeAudioContext(): Promise<void> {
 let moduleThudSynth: Synth | null = null
 let moduleThudTimer: ReturnType<typeof setTimeout> | null = null
 
-function scheduleThud(fireAt: number) {
+function scheduleThud(fireAt: number, volumeDb: number) {
   if (moduleThudTimer) clearTimeout(moduleThudTimer)
   moduleThudSynth?.dispose()
 
   const synth = new Tone.Synth({
     oscillator: { type: 'sine' },
     envelope: { attack: 0.005, decay: 0.001, sustain: 1, release: 0.6 },
-    volume: Tone.gainToDb(0.18),
+    volume: -15 + volumeDb,
   }).toDestination()
   moduleThudSynth = synth
   synth.triggerAttackRelease(120, 0.9, fireAt)
@@ -65,7 +65,7 @@ function cancelThud() {
   moduleThudSynth = null
 }
 
-export function useCountdownSound(seconds: number, isPaused: boolean) {
+export function useCountdownSound(seconds: number, isPaused: boolean, volumeDb: number = 0) {
   const synthRef = useRef<Synth | null>(null)
   const scheduledRef = useRef(false)
 
@@ -82,7 +82,7 @@ export function useCountdownSound(seconds: number, isPaused: boolean) {
     const beepSynth = new Tone.Synth({
       oscillator: { type: 'square' },
       envelope: { attack: 0.003, decay: 0.03, sustain: 0, release: 0.003 },
-      volume: Tone.gainToDb(0.03),
+      volume: -30 + volumeDb,
     }).toDestination()
     synthRef.current = beepSynth
 
@@ -94,7 +94,7 @@ export function useCountdownSound(seconds: number, isPaused: boolean) {
     }
 
     // Audio starts at seconds=1, so 19 more seconds = wall-clock second 20
-    scheduleThud(now + 19)
+    scheduleThud(now + 19, volumeDb)
   }, [seconds])
 
   // Cancel beep synth when paused; cancel thud too if paused mid-sequence

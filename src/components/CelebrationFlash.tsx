@@ -8,6 +8,8 @@ export default function CelebrationFlash({ emoji }: CelebrationFlashProps) {
   return (
     <motion.div
       className="screen"
+      role="region"
+      aria-label="Celebration"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1, transition: { duration: 0.2 } }}
       exit={{ opacity: 0, transition: { duration: 0.3 } }}

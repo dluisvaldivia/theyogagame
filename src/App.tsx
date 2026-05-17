@@ -68,6 +68,7 @@ export default function App() {
   const [holdSeconds, setHoldSeconds] = useState(0)
   const [bgImageVisible, setBgImageVisible] = useState(false)
   const [celebrationEmoji, setCelebrationEmoji] = useState('')
+  const [volume, setVolume] = useState(0)
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const poseIndexRef = useRef(0)
@@ -164,13 +165,30 @@ export default function App() {
   const showBgImage = bgImageVisible && (phase === 'countdown' || phase === 'holding' || phase === 'celebrate')
 
   return (
-    <div style={{ position: 'relative', width: '100%', minHeight: '100svh' }}>
+    <main
+      aria-label="Yoga Buddy game"
+      style={{ position: 'relative', width: '100%', minHeight: '100svh' }}
+    >
+      {/* Screen-reader live region — announces phase transitions */}
+      <div
+        aria-live="polite"
+        aria-atomic="true"
+        style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap' }}
+      >
+        {phase === 'intro' && 'Yoga Buddy home screen'}
+        {phase === 'pose' && `Pose ${poseIndex + 1} of ${poses.length}: ${currentPose.englishName}`}
+        {phase === 'countdown' && 'Get in position, countdown starting'}
+        {phase === 'holding' && 'Hold the pose, timer running'}
+        {phase === 'celebrate' && 'Great job! Moving to next pose'}
+        {phase === 'final' && 'You completed all poses!'}
+      </div>
+
       {/* Persistent pose background image — never unmounts during countdown→holding */}
       <motion.img
         src={poseImageMap[currentPose.id]}
         aria-hidden="true"
         initial={{ opacity: 0 }}
-        animate={{ opacity: showBgImage ? 0.25 : 0 }}
+        animate={{ opacity: showBgImage ? 0.70 : 0 }}
         transition={{ duration: 0.8, ease: 'easeIn' as const }}
         style={{
           position: 'fixed',
@@ -186,7 +204,7 @@ export default function App() {
 
       <AnimatePresence mode="wait">
         {phase === 'intro' && (
-          <IntroScreen key="intro" onStart={handleStart} />
+          <IntroScreen key="intro" onStart={handleStart} volume={volume} onVolumeChange={setVolume} />
         )}
 
         {phase === 'pose' && (
@@ -215,6 +233,7 @@ export default function App() {
             isPaused={isPaused}
             onPause={handlePause}
             onPlay={handlePlay}
+            volume={volume}
           />
         )}
 
@@ -226,6 +245,6 @@ export default function App() {
           <FinalScreen key="final" onRestart={handleRestart} />
         )}
       </AnimatePresence>
-    </div>
+    </main>
   )
 }

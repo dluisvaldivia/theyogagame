@@ -2,6 +2,8 @@ import { motion } from 'framer-motion'
 
 interface IntroScreenProps {
   onStart: (mode: 'solo' | 'duo') => void
+  volume: number
+  onVolumeChange: (v: number) => void
 }
 
 const variants = {
@@ -10,17 +12,25 @@ const variants = {
   exit: { opacity: 0, y: -40, transition: { duration: 0.3, ease: 'easeIn' as const } },
 }
 
-export default function IntroScreen({ onStart }: IntroScreenProps) {
+const VOLUME_OPTIONS = [
+  { label: 'LOW', value: 0, aria: 'Low volume', fontSize: 13, padding: '7px 14px' },
+  { label: 'MED', value: 18, aria: 'Medium volume', fontSize: 16, padding: '9px 18px' },
+  { label: 'HIGH', value: 36, aria: 'High volume', fontSize: 20, padding: '11px 22px' },
+]
+
+export default function IntroScreen({ onStart, volume, onVolumeChange }: IntroScreenProps) {
   return (
     <motion.div
       className="screen"
+      role="region"
+      aria-label="Home"
       variants={variants}
       initial="initial"
       animate="animate"
       exit="exit"
     >
-      <div style={{ textAlign: 'center', marginBottom: 48 }}>
-        <div style={{ fontSize: 72, lineHeight: 1, marginBottom: 8 }}>🧘</div>
+      <div style={{ textAlign: 'center', marginBottom: 24 }}>
+        <div style={{ fontSize: 216, lineHeight: 1, marginBottom: 8 }}>🧘</div>
         <h1
           style={{
             fontSize: 'clamp(42px, 12vw, 64px)',
@@ -46,6 +56,34 @@ export default function IntroScreen({ onStart }: IntroScreenProps) {
         </p>
       </div>
 
+      <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginBottom: 32, alignItems: 'center' }}>
+        {VOLUME_OPTIONS.map(({ label, value, aria, fontSize, padding }) => {
+          const active = volume === value
+          return (
+            <motion.button
+              key={value}
+              aria-label={aria}
+              onClick={() => onVolumeChange(value)}
+              whileTap={{ scale: 0.93 }}
+              style={{
+                padding,
+                borderRadius: 40,
+                border: '2px solid rgba(255,255,255,0.8)',
+                background: active ? 'rgba(255,255,255,0.95)' : 'transparent',
+                color: active ? '#333' : 'rgba(255,255,255,0.9)',
+                fontWeight: 700,
+                fontSize,
+                cursor: 'pointer',
+                letterSpacing: '0.04em',
+                transition: 'background 0.15s, color 0.15s',
+              }}
+            >
+              {label}
+            </motion.button>
+          )
+        })}
+      </div>
+
       <div style={{ display: 'flex', gap: 16, justifyContent: 'center' }}>
         <motion.button
           className="btn btn-primary"
@@ -63,7 +101,7 @@ export default function IntroScreen({ onStart }: IntroScreenProps) {
           whileTap={{ scale: 0.95 }}
           whileHover={{ scale: 1.04 }}
         >
-          👥 2 PLAYERS
+          2 PLAYERS
         </motion.button>
       </div>
 

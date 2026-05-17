@@ -52,6 +52,8 @@ export default function CountdownScreen({ onComplete, onShowImage }: CountdownSc
   return (
     <motion.div
       className="screen"
+      role="region"
+      aria-label="Countdown"
       variants={screenVariants}
       initial="initial"
       animate="animate"

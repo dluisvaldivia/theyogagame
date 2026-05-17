@@ -6,6 +6,7 @@ interface HoldCounterProps {
   isPaused: boolean
   onPause: () => void
   onPlay: () => void
+  volume: number
 }
 
 function getCounterStyle(seconds: number): { color: string; opacity: number } {
@@ -25,13 +26,16 @@ const screenVariants = {
   exit: { opacity: 0, scale: 0.95, transition: { duration: 0.25 } },
 }
 
-export default function HoldCounter({ seconds, isPaused, onPause, onPlay }: HoldCounterProps) {
-  useCountdownSound(seconds, isPaused)
+export default function HoldCounter({ seconds, isPaused, onPause, onPlay, volume }: HoldCounterProps) {
+  useCountdownSound(seconds, isPaused, volume)
+
   const style = getCounterStyle(Math.max(1, seconds))
 
   return (
     <motion.div
       className="screen"
+      role="region"
+      aria-label={isPaused ? 'Hold timer paused' : 'Hold the pose'}
       variants={screenVariants}
       initial="initial"
       animate="animate"
@@ -84,25 +88,27 @@ export default function HoldCounter({ seconds, isPaused, onPause, onPlay }: Hold
         </AnimatePresence>
       </div>
 
-      {/* Progress bar — only shown once counting starts to avoid backwards animation */}
+      {/* Progress bar */}
       <div
         style={{
-          width: '80%',
-          maxWidth: 320,
-          height: 6,
-          background: 'rgba(255,255,255,0.3)',
-          borderRadius: 3,
-          marginBottom: 32,
+          width: '88%',
+          maxWidth: 400,
+          height: 14,
+          background: 'rgba(255,255,255,0.25)',
+          borderRadius: 8,
+          marginBottom: 28,
           overflow: 'hidden',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.18)',
         }}
       >
         {seconds >= 1 && (
           <motion.div
             style={{
               height: '100%',
-              background: style.color,
-              borderRadius: 3,
+              background: `linear-gradient(90deg, ${style.color}cc, ${style.color})`,
+              borderRadius: 8,
               originX: 0,
+              boxShadow: `0 0 12px ${style.color}99`,
             }}
             initial={{ width: '0%' }}
             animate={{ width: `${(seconds / 20) * 100}%` }}

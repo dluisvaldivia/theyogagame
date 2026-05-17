@@ -18,6 +18,8 @@ export default function FinalScreen({ onRestart }: FinalScreenProps) {
   return (
     <motion.div
       className="screen"
+      role="region"
+      aria-label="Game complete"
       variants={variants}
       initial="initial"
       animate="animate"
@@ -43,7 +45,7 @@ export default function FinalScreen({ onRestart }: FinalScreenProps) {
         </p>
 
         <div style={{ fontSize: 36, letterSpacing: 4, margin: '4px 0 16px' }}>
-          ⭐⭐⭐⭐⭐
+          🧘🌟🏆
         </div>
 
         <motion.button
