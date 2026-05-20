@@ -35,6 +35,18 @@ export function primeAudioContext(): Promise<void> {
   return Tone.start()
 }
 
+// Play a single preview beep at the given volume level (same square-wave synth as countdown).
+export async function playPreviewBeep(volumeDb: number): Promise<void> {
+  await Tone.start()
+  const synth = new Tone.Synth({
+    oscillator: { type: 'square' },
+    envelope: { attack: 0.003, decay: 0.08, sustain: 0, release: 0.003 },
+    volume: -30 + volumeDb,
+  }).toDestination()
+  synth.triggerAttackRelease(440, '16n')
+  setTimeout(() => synth.dispose(), 500)
+}
+
 // Module-level thud state — survives HoldCounter unmounting when celebrate phase starts
 let moduleThudSynth: Synth | null = null
 let moduleThudTimer: ReturnType<typeof setTimeout> | null = null

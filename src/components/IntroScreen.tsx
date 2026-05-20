@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion'
+import earImg from '../assets/ear (2).png'
+import { playPreviewBeep } from '../hooks/useCountdownSound'
 
 interface IntroScreenProps {
   onStart: (mode: 'solo' | 'duo') => void
@@ -39,49 +41,42 @@ export default function IntroScreen({ onStart, volume, onVolumeChange }: IntroSc
             textShadow: '0 2px 16px rgba(0,0,0,0.25)',
             margin: '0 0 8px',
             letterSpacing: '-1px',
+            lineHeight: 0.90,
           }}
         >
           YOGA<br />BUDDY
         </h1>
-        <p
-          style={{
-            fontSize: 18,
-            color: 'rgba(255,255,255,0.9)',
-            fontWeight: 600,
-            textShadow: '0 1px 8px rgba(0,0,0,0.2)',
-            margin: 0,
-          }}
-        >
-          5 poses · Hold each one · Have fun!
-        </p>
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginBottom: 32, alignItems: 'center' }}>
-        {VOLUME_OPTIONS.map(({ label, value, aria, fontSize, padding }) => {
-          const active = volume === value
-          return (
-            <motion.button
-              key={value}
-              aria-label={aria}
-              onClick={() => onVolumeChange(value)}
-              whileTap={{ scale: 0.93 }}
-              style={{
-                padding,
-                borderRadius: 40,
-                border: '2px solid rgba(255,255,255,0.8)',
-                background: active ? 'rgba(255,255,255,0.95)' : 'transparent',
-                color: active ? '#333' : 'rgba(255,255,255,0.9)',
-                fontWeight: 700,
-                fontSize,
-                cursor: 'pointer',
-                letterSpacing: '0.04em',
-                transition: 'background 0.15s, color 0.15s',
-              }}
-            >
-              {label}
-            </motion.button>
-          )
-        })}
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: 32, gap: 10 }}>
+        <img src={earImg} alt="" aria-hidden="true" style={{ width: 36, height: 36, objectFit: 'contain', opacity: 0.85 }} />
+        <div style={{ display: 'flex', justifyContent: 'center', gap: 8, alignItems: 'center' }}>
+          {VOLUME_OPTIONS.map(({ label, value, aria, fontSize, padding }) => {
+            const active = volume === value
+            return (
+              <motion.button
+                key={value}
+                aria-label={aria}
+                onClick={() => { onVolumeChange(value); playPreviewBeep(value) }}
+                whileTap={{ scale: 0.93 }}
+                style={{
+                  padding,
+                  borderRadius: 40,
+                  border: '2px solid rgba(255,255,255,0.8)',
+                  background: active ? 'rgba(255,255,255,0.95)' : 'transparent',
+                  color: active ? '#333' : 'rgba(255,255,255,0.9)',
+                  fontWeight: 700,
+                  fontSize,
+                  cursor: 'pointer',
+                  letterSpacing: '0.04em',
+                  transition: 'background 0.15s, color 0.15s',
+                }}
+              >
+                {label}
+              </motion.button>
+            )
+          })}
+        </div>
       </div>
 
       <div style={{ display: 'flex', gap: 16, justifyContent: 'center' }}>
