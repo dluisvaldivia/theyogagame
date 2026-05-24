@@ -35,7 +35,7 @@ export default function IntroScreen({ onStart, volume, onVolumeChange }: IntroSc
         <div style={{ fontSize: 216, lineHeight: 1, marginBottom: 8 }}>🧘</div>
         <h1
           style={{
-            fontSize: 'clamp(22px, 8vw, 80px)',
+            fontSize: 'clamp(22px, 9vw, 52px)',
             fontWeight: 900,
             color: '#fff',
             textShadow: '0 2px 16px rgba(0,0,0,0.25)',
