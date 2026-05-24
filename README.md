@@ -1,4 +1,4 @@
-# YOGABUDDY 🧘
+# THAT YOGA GAME 🧘
 
 A kids' yoga game built with React 19 + Vite + TypeScript + Framer Motion.
 

@@ -44,7 +44,7 @@ export default function IntroScreen({ onStart, volume, onVolumeChange }: IntroSc
             lineHeight: 0.90,
           }}
         >
-          YOGA<br />BUDDY
+          THAT<br />YOGA<br />GAME
         </h1>
       </div>
 

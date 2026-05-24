@@ -166,7 +166,7 @@ export default function App() {
 
   return (
     <main
-      aria-label="Yoga Buddy game"
+      aria-label="That Yoga Game"
       style={{ position: 'relative', width: '100%', minHeight: '100svh' }}
     >
       {/* Screen-reader live region — announces phase transitions */}
@@ -175,7 +175,7 @@ export default function App() {
         aria-atomic="true"
         style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap' }}
       >
-        {phase === 'intro' && 'Yoga Buddy home screen'}
+        {phase === 'intro' && 'That Yoga Game home screen'}
         {phase === 'pose' && `Pose ${poseIndex + 1} of ${poses.length}: ${currentPose.englishName}`}
         {phase === 'countdown' && 'Get in position, countdown starting'}
         {phase === 'holding' && 'Hold the pose, timer running'}
