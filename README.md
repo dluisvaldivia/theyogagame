@@ -1,4 +1,4 @@
-# THAT YOGA GAME 🧘
+# THE YOGA GAME 🧘
 
 A kids' yoga game built with React 19 + Vite + TypeScript + Framer Motion.
 

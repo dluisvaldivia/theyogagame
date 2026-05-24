@@ -35,16 +35,16 @@ export default function IntroScreen({ onStart, volume, onVolumeChange }: IntroSc
         <div style={{ fontSize: 216, lineHeight: 1, marginBottom: 8 }}>🧘</div>
         <h1
           style={{
-            fontSize: 'clamp(42px, 12vw, 64px)',
+            fontSize: 'clamp(22px, 8vw, 80px)',
             fontWeight: 900,
             color: '#fff',
             textShadow: '0 2px 16px rgba(0,0,0,0.25)',
             margin: '0 0 8px',
             letterSpacing: '-1px',
-            lineHeight: 0.90,
+            whiteSpace: 'nowrap',
           }}
         >
-          THAT<br />YOGA<br />GAME
+          THE YOGA GAME
         </h1>
       </div>
 
