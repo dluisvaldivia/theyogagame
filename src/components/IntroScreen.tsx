@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import earImg from '../assets/ear (2).png'
+import shhImg from '../assets/shh.png'
 import { playPreviewBeep } from '../hooks/useCountdownSound'
 
 interface IntroScreenProps {
@@ -76,6 +77,24 @@ export default function IntroScreen({ onStart, volume, onVolumeChange }: IntroSc
               </motion.button>
             )
           })}
+          <motion.button
+            aria-label="Mute sound"
+            onClick={() => onVolumeChange(-Infinity)}
+            whileTap={{ scale: 0.93 }}
+            style={{
+              padding: '0px 4px',
+              borderRadius: 40,
+              border: '2px solid rgba(255,255,255,0.8)',
+              background: !isFinite(volume) ? 'rgba(255,255,255,0.95)' : 'transparent',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'background 0.15s',
+            }}
+          >
+            <img src={shhImg} alt="" aria-hidden="true" style={{ width: 42, height: 42, objectFit: 'contain' }} />
+          </motion.button>
         </div>
       </div>
 
@@ -100,25 +119,38 @@ export default function IntroScreen({ onStart, volume, onVolumeChange }: IntroSc
         </motion.button>
       </div>
 
-      <a
-        href="https://dluisvaldivia.github.io/DVPortfolio/"
-        target="_blank"
-        rel="noopener noreferrer"
+      <div
         style={{
           position: 'absolute',
           bottom: 16,
           left: 0,
           right: 0,
-          textAlign: 'center',
-          fontSize: 13,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 10,
           color: 'rgba(255,255,255,0.55)',
-          textDecoration: 'none',
           letterSpacing: '0.02em',
           fontWeight: 500,
         }}
       >
-        Made by Danny Valdivia
-      </a>
+        <a
+          href="https://dluisvaldivia.github.io/DVPortfolio/"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: 'inherit', textDecoration: 'none', fontSize: 13 }}
+        >
+          Made by Danny Valdivia
+        </a>
+        <a
+          href="https://yogakiddy.com/index.html"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: 'inherit', textDecoration: 'none', fontSize: 12 }}
+        >
+          Images by Yoga Kiddy
+        </a>
+      </div>
     </motion.div>
   )
 }

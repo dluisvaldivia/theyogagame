@@ -6,17 +6,20 @@ interface HoldCounterProps {
   isPaused: boolean
   onPause: () => void
   onPlay: () => void
+  onHome: () => void
   volume: number
+  holdDuration: number
 }
 
-function getCounterStyle(seconds: number): { color: string; opacity: number } {
+function getCounterStyle(seconds: number, holdDuration: number): { color: string; opacity: number } {
+  const pct = (seconds - 1) / (holdDuration - 1)
   let color: string
-  if (seconds <= 6) color = '#FFFFFF'
-  else if (seconds <= 11) color = '#FFE135'
-  else if (seconds <= 16) color = '#FF8C00'
+  if (pct < 0.3) color = '#FFFFFF'
+  else if (pct < 0.55) color = '#FFE135'
+  else if (pct < 0.8) color = '#FF8C00'
   else color = '#FF2020'
 
-  const opacity = 1.0 - ((seconds - 1) / 19) * 0.7
+  const opacity = 1.0 - pct * 0.7
   return { color, opacity }
 }
 
@@ -26,10 +29,10 @@ const screenVariants = {
   exit: { opacity: 0, scale: 0.95, transition: { duration: 0.25 } },
 }
 
-export default function HoldCounter({ seconds, isPaused, onPause, onPlay, volume }: HoldCounterProps) {
-  useCountdownSound(seconds, isPaused, volume)
+export default function HoldCounter({ seconds, isPaused, onPause, onPlay, onHome, volume, holdDuration }: HoldCounterProps) {
+  useCountdownSound(seconds, isPaused, volume, holdDuration)
 
-  const style = getCounterStyle(Math.max(1, seconds))
+  const style = getCounterStyle(Math.max(1, seconds), holdDuration)
 
   return (
     <motion.div
@@ -43,7 +46,7 @@ export default function HoldCounter({ seconds, isPaused, onPause, onPlay, volume
       style={{ gap: 0, position: 'relative', zIndex: 1 }}
     >
       {/* Hold label */}
-      <p
+      <h1
         style={{
           color: 'rgba(255,255,255,0.85)',
           fontWeight: 700,
@@ -55,7 +58,7 @@ export default function HoldCounter({ seconds, isPaused, onPause, onPlay, volume
         }}
       >
         {isPaused ? 'PAUSED' : 'HOLD IT!'}
-      </p>
+      </h1>
 
       {/* Big number */}
       <div
@@ -111,20 +114,31 @@ export default function HoldCounter({ seconds, isPaused, onPause, onPlay, volume
               boxShadow: `0 0 12px ${style.color}99`,
             }}
             initial={{ width: '0%' }}
-            animate={{ width: `${(seconds / 20) * 100}%` }}
+            animate={{ width: `${(seconds / holdDuration) * 100}%` }}
             transition={{ duration: 0.9, ease: 'linear' as const }}
           />
         )}
       </div>
 
       {/* Controls */}
-      <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 48, width: '100%' }}>
         <motion.button
           className="btn btn-secondary"
           onClick={isPaused ? onPlay : onPause}
           whileTap={{ scale: 0.95 }}
+          style={{ width: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, lineHeight: 1.2, fontSize: 30, padding: '20px 48px' }}
         >
-          {isPaused ? '▶ PLAY' : '⏸ PAUSE'}
+          <span style={{ fontSize: '1.2em' }}>{isPaused ? '▶' : '⏸'}</span>
+          <span style={{ fontSize: '0.7em', letterSpacing: '0.08em', opacity: 0.85 }}>{isPaused ? 'PLAY' : 'PAUSE'}</span>
+        </motion.button>
+        <motion.button
+          className="btn btn-secondary"
+          onClick={onHome}
+          whileTap={{ scale: 0.95 }}
+          style={{ width: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, lineHeight: 1.2 }}
+        >
+          <span style={{ fontSize: '1.2em' }}>🏠</span>
+          <span style={{ fontSize: '0.7em', letterSpacing: '0.08em', opacity: 0.85 }}>HOME</span>
         </motion.button>
       </div>
     </motion.div>

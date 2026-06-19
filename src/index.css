@@ -88,6 +88,7 @@ body {
   cursor: pointer;
   transition: transform 0.12s ease, box-shadow 0.12s ease;
   user-select: none;
+  touch-action: manipulation;
 }
 
 .btn:active {
@@ -114,8 +115,26 @@ body {
 }
 
 .btn-secondary:hover {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.15);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-duration-selected {
+  background: linear-gradient(
+    135deg,
+    #ff6b6b 0%,
+    #ffd93d 20%,
+    #6bcb77 40%,
+    #4d96ff 60%,
+    #c77dff 80%,
+    #ff6b6b 100%
+  );
+  background-size: 300% 300%;
+  animation: gradientFlow 20s ease infinite, rainbowShift 30s linear infinite;
+  color: #fff;
+  font-weight: 800;
+  outline: 3px solid #fff;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.3);
 }
 
 /* Difficulty level bar */

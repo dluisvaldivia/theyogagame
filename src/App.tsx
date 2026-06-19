@@ -69,6 +69,7 @@ export default function App() {
   const [bgImageVisible, setBgImageVisible] = useState(false)
   const [celebrationEmoji, setCelebrationEmoji] = useState('')
   const [volume, setVolume] = useState(0)
+  const [holdDuration, setHoldDuration] = useState(30)
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const poseIndexRef = useRef(0)
@@ -110,12 +111,12 @@ export default function App() {
       if (isPausedRef.current) return
       holdSecondsRef.current += 1
       setHoldSeconds(holdSecondsRef.current)
-      if (holdSecondsRef.current >= 20) {
+      if (holdSecondsRef.current >= holdDuration) {
         clearTimer()
         setTimeout(() => advanceToNextPose(), 1000)
       }
     }, 1000)
-  }, [advanceToNextPose])
+  }, [advanceToNextPose, holdDuration])
 
   function handleStart(mode: GameMode) {
     poseIndexRef.current = 0
@@ -186,6 +187,7 @@ export default function App() {
       {/* Persistent pose background image — never unmounts during countdown→holding */}
       <motion.img
         src={poseImageMap[currentPose.id]}
+        alt=""
         aria-hidden="true"
         initial={{ opacity: 0 }}
         animate={{ opacity: showBgImage ? 0.70 : 0 }}
@@ -215,6 +217,9 @@ export default function App() {
             poseNumber={poseIndex + 1}
             totalPoses={poses.length}
             onReady={handlePoseReady}
+            onHome={handleRestart}
+            holdDuration={holdDuration}
+            onHoldDurationChange={setHoldDuration}
           />
         )}
 
@@ -233,7 +238,9 @@ export default function App() {
             isPaused={isPaused}
             onPause={handlePause}
             onPlay={handlePlay}
+            onHome={handleRestart}
             volume={volume}
+            holdDuration={holdDuration}
           />
         )}
 

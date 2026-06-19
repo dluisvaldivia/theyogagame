@@ -1,5 +1,7 @@
 # THE YOGA GAME 🧘
 
+**[▶ Play it live](https://dluisvaldivia.github.io/theyogagame/)**
+
 A kids' yoga game built with React 19 + Vite + TypeScript + Framer Motion.
 
 ## How it works

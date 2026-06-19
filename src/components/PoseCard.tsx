@@ -14,6 +14,9 @@ interface PoseCardProps {
   poseNumber: number
   totalPoses: number
   onReady: () => void
+  onHome: () => void
+  holdDuration: number
+  onHoldDurationChange: (d: number) => void
 }
 
 const variants = {
@@ -43,7 +46,9 @@ function LevelBar({ difficulty }: { difficulty: 1 | 2 | 3 }) {
   )
 }
 
-export default function PoseCard({ pose, poseImage, poseNumber, totalPoses, onReady }: PoseCardProps) {
+const DURATION_OPTIONS = [30, 45, 60]
+
+export default function PoseCard({ pose, poseImage, poseNumber, totalPoses, onReady, onHome, holdDuration, onHoldDurationChange }: PoseCardProps) {
   return (
     <motion.div
       className="screen"
@@ -88,6 +93,7 @@ export default function PoseCard({ pose, poseImage, poseNumber, totalPoses, onRe
             fontStyle: 'italic',
             color: '#888',
             margin: 0,
+            marginTop: 'clamp(-8px, -1.2vh, -4px)',
             textAlign: 'center',
           }}
         >
@@ -110,12 +116,39 @@ export default function PoseCard({ pose, poseImage, poseNumber, totalPoses, onRe
 
         <motion.button
           className="btn btn-primary"
-          style={{ width: '100%', fontSize: 18, borderRadius: 14, marginTop: 4 }}
+          style={{ width: '100%', fontSize: 30, padding: '20px 48px', borderRadius: 14, marginTop: 4 }}
           onClick={onReady}
           whileTap={{ scale: 0.97 }}
           whileHover={{ scale: 1.02 }}
         >
           GO▶️
+        </motion.button>
+
+        <div style={{ display: 'flex', gap: 32, justifyContent: 'center', marginTop: 8 }}>
+          {DURATION_OPTIONS.map(d => (
+            <motion.button
+              key={d}
+              className={`btn btn-secondary${holdDuration === d ? ' btn-duration-selected' : ''}`}
+              onClick={() => onHoldDurationChange(d)}
+              whileTap={{ scale: 0.95 }}
+              style={{
+                fontSize: 15,
+                padding: '10px 16px',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {d} ⏳
+            </motion.button>
+          ))}
+        </div>
+        <motion.button
+          className="btn btn-secondary"
+          onClick={onHome}
+          whileTap={{ scale: 0.95 }}
+          style={{ width: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, lineHeight: 1.2, marginTop: 12, alignSelf: 'center' }}
+        >
+          <span style={{ fontSize: '1.2em' }}>🏠</span>
+          <span style={{ fontSize: '0.7em', letterSpacing: '0.08em', opacity: 0.85 }}>HOME</span>
         </motion.button>
       </div>
     </motion.div>
