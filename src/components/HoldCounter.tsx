@@ -43,7 +43,7 @@ export default function HoldCounter({ seconds, isPaused, onPause, onPlay, onHome
       initial="initial"
       animate="animate"
       exit="exit"
-      style={{ gap: 0, position: 'relative', zIndex: 1 }}
+      style={{ gap: 0, position: 'relative', zIndex: 1, height: '100%', overflowY: 'auto' }}
     >
       {/* Hold label */}
       <h1
@@ -63,7 +63,8 @@ export default function HoldCounter({ seconds, isPaused, onPause, onPlay, onHome
       {/* Big number */}
       <div
         style={{
-          height: '42vh',
+          flex: 1,
+          minHeight: 0,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -76,7 +77,7 @@ export default function HoldCounter({ seconds, isPaused, onPause, onPlay, onHome
             animate={{ scale: 1, opacity: style.opacity, transition: { type: 'spring' as const, stiffness: 350, damping: 22 } }}
             exit={{ scale: 0.7, opacity: 0, transition: { duration: 0.15 } }}
             style={{
-              fontSize: 'clamp(120px, 30vw, 240px)',
+              fontSize: 'clamp(40px, min(20vw, 20svh), 200px)',
               fontWeight: 900,
               color: style.color,
               WebkitTextStroke: '3px rgba(0,0,0,0.55)',
@@ -121,12 +122,12 @@ export default function HoldCounter({ seconds, isPaused, onPause, onPlay, onHome
       </div>
 
       {/* Controls */}
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 48, width: '100%' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'clamp(6px, 2svh, 32px)', width: '100%' }}>
         <motion.button
           className="btn btn-secondary"
           onClick={isPaused ? onPlay : onPause}
           whileTap={{ scale: 0.95 }}
-          style={{ width: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, lineHeight: 1.2, fontSize: 30, padding: '20px 48px' }}
+          style={{ width: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, lineHeight: 1.2, fontSize: 'clamp(16px, 4svh, 30px)', padding: 'clamp(8px, 2svh, 20px) clamp(20px, 5vw, 48px)' }}
         >
           <span style={{ fontSize: '1.2em' }}>{isPaused ? '▶' : '⏸'}</span>
           <span style={{ fontSize: '0.7em', letterSpacing: '0.08em', opacity: 0.85 }}>{isPaused ? 'PLAY' : 'PAUSE'}</span>

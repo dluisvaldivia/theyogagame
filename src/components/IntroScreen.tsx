@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import earImg from '../assets/ear (2).png'
 import shhImg from '../assets/shh.png'
+import shhSound from '../assets/shh.mp3'
 import { playPreviewBeep } from '../hooks/useCountdownSound'
 
 interface IntroScreenProps {
@@ -79,7 +80,7 @@ export default function IntroScreen({ onStart, volume, onVolumeChange }: IntroSc
           })}
           <motion.button
             aria-label="Mute sound"
-            onClick={() => onVolumeChange(-Infinity)}
+            onClick={() => { onVolumeChange(-Infinity); new Audio(shhSound).play().catch(() => {}) }}
             whileTap={{ scale: 0.93 }}
             style={{
               padding: '0px 4px',

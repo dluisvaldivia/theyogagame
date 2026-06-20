@@ -34,10 +34,23 @@ function getBeepSchedule(holdDuration: number): number[] {
   return scheduleCache.get(holdDuration)!
 }
 
+let endSoundBuffer: AudioBuffer | null = null
+
+async function preloadEndSound(ctx: AudioContext): Promise<void> {
+  if (endSoundBuffer) return
+  try {
+    const res = await fetch(endSoundUrl)
+    const raw = await res.arrayBuffer()
+    endSoundBuffer = await ctx.decodeAudioData(raw)
+  } catch {}
+}
+
 // Call this inside a user-gesture handler (tap/click) to unlock the AudioContext
 // on mobile before the countdown starts. Returns a Promise for callers that await it.
-export function primeAudioContext(): Promise<void> {
-  return Tone.start()
+export async function primeAudioContext(): Promise<void> {
+  await Tone.start()
+  const ctx = Tone.getContext().rawContext as unknown as AudioContext
+  preloadEndSound(ctx)
 }
 
 // Play a single preview beep at the given volume level (same square-wave synth as countdown).
@@ -126,9 +139,16 @@ export function useCountdownSound(seconds: number, isPaused: boolean, volumeDb: 
   // End sound: fires exactly when the counter reaches holdDuration, no timer math
   useEffect(() => {
     if (seconds !== holdDuration) return
-    const audio = new Audio(endSoundUrl)
-    audio.volume = Math.min(1, Math.max(0, Math.pow(10, volumeDbRef.current / 20)))
-    audio.play().catch(() => {})
+    const ctx = Tone.getContext().rawContext as unknown as AudioContext
+    if (endSoundBuffer) {
+      const source = ctx.createBufferSource()
+      source.buffer = endSoundBuffer
+      const gain = ctx.createGain()
+      gain.gain.value = Math.min(1, Math.max(0, Math.pow(10, volumeDbRef.current / 20)))
+      source.connect(gain)
+      gain.connect(ctx.destination)
+      source.start()
+    }
   }, [seconds, holdDuration])
 
   useEffect(() => {

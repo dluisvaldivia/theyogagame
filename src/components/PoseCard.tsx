@@ -59,7 +59,7 @@ export default function PoseCard({ pose, poseImage, poseNumber, totalPoses, onRe
       animate="animate"
       exit="exit"
     >
-      <div className="card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'clamp(6px, 1.4vh, 12px)' }}>
+      <div className="card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'clamp(6px, 1.4vh, 12px)', overflowY: 'auto' }}>
         <span className="progress-pill">{poseNumber} / {totalPoses}</span>
 
         <img
@@ -67,7 +67,7 @@ export default function PoseCard({ pose, poseImage, poseNumber, totalPoses, onRe
           alt={`${pose.englishName} pose`}
           style={{
             width: '100%',
-            maxHeight: '50%',
+            maxHeight: 'clamp(140px, 30svh, 280px)',
             objectFit: 'contain',
             borderRadius: 16,
             background: '#f8f6ff',
@@ -116,7 +116,7 @@ export default function PoseCard({ pose, poseImage, poseNumber, totalPoses, onRe
 
         <motion.button
           className="btn btn-primary"
-          style={{ width: '100%', fontSize: 30, padding: '20px 48px', borderRadius: 14, marginTop: 4 }}
+          style={{ width: '100%', fontSize: 'clamp(18px, 4svh, 30px)', padding: 'clamp(10px, 2svh, 20px) 48px', borderRadius: 14, marginTop: 4 }}
           onClick={onReady}
           whileTap={{ scale: 0.97 }}
           whileHover={{ scale: 1.02 }}
@@ -124,7 +124,7 @@ export default function PoseCard({ pose, poseImage, poseNumber, totalPoses, onRe
           GO▶️
         </motion.button>
 
-        <div style={{ display: 'flex', gap: 32, justifyContent: 'center', marginTop: 8 }}>
+        <div style={{ display: 'flex', gap: 'clamp(8px, 2vw, 32px)', justifyContent: 'center', marginTop: 'clamp(2px, 1svh, 8px)' }}>
           {DURATION_OPTIONS.map(d => (
             <motion.button
               key={d}
@@ -145,7 +145,7 @@ export default function PoseCard({ pose, poseImage, poseNumber, totalPoses, onRe
           className="btn btn-secondary"
           onClick={onHome}
           whileTap={{ scale: 0.95 }}
-          style={{ width: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, lineHeight: 1.2, marginTop: 12, alignSelf: 'center' }}
+          style={{ width: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, lineHeight: 1.2, marginTop: 'clamp(4px, 1svh, 12px)', alignSelf: 'center' }}
         >
           <span style={{ fontSize: '1.2em' }}>🏠</span>
           <span style={{ fontSize: '0.7em', letterSpacing: '0.08em', opacity: 0.85 }}>HOME</span>
