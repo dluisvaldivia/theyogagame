@@ -26,7 +26,7 @@ export default function FinalScreen({ onRestart }: FinalScreenProps) {
       exit="exit"
     >
       <div className="card" style={{ textAlign: 'center', gap: 16, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <div style={{ fontSize: 72, lineHeight: 1 }}>🎉</div>
+        <div aria-hidden="true" style={{ fontSize: 72, lineHeight: 1 }}>🎉</div>
 
         <h2
           style={{
@@ -44,18 +44,19 @@ export default function FinalScreen({ onRestart }: FinalScreenProps) {
           <strong>5 yoga poses</strong> like a champion!
         </p>
 
-        <div style={{ fontSize: 36, letterSpacing: 4, margin: '4px 0 16px' }}>
+        <div aria-hidden="true" style={{ fontSize: 36, letterSpacing: 4, margin: '4px 0 16px' }}>
           🧘🌟🏆
         </div>
 
         <motion.button
           className="btn btn-primary"
+          aria-label="Play again"
           style={{ width: '100%', fontSize: 18, borderRadius: 14 }}
           onClick={onRestart}
           whileTap={{ scale: 0.97 }}
           whileHover={{ scale: 1.02 }}
         >
-          PLAY AGAIN 🔄
+          PLAY AGAIN <span aria-hidden="true">🔄</span>
         </motion.button>
       </div>
     </motion.div>

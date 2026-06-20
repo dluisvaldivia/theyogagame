@@ -116,18 +116,20 @@ export default function PoseCard({ pose, poseImage, poseNumber, totalPoses, onRe
 
         <motion.button
           className="btn btn-primary"
+          aria-label="Go, start the pose"
           style={{ width: '100%', fontSize: 'clamp(18px, 4svh, 30px)', padding: 'clamp(10px, 2svh, 20px) 48px', borderRadius: 14, marginTop: 4 }}
           onClick={onReady}
           whileTap={{ scale: 0.97 }}
           whileHover={{ scale: 1.02 }}
         >
-          GO▶️
+          GO <span aria-hidden="true">▶️</span>
         </motion.button>
 
         <div style={{ display: 'flex', gap: 'clamp(8px, 2vw, 32px)', justifyContent: 'center', marginTop: 'clamp(2px, 1svh, 8px)' }}>
           {DURATION_OPTIONS.map(d => (
             <motion.button
               key={d}
+              aria-label={`${d} seconds`}
               className={`btn btn-secondary${holdDuration === d ? ' btn-duration-selected' : ''}`}
               onClick={() => onHoldDurationChange(d)}
               whileTap={{ scale: 0.95 }}
@@ -137,18 +139,19 @@ export default function PoseCard({ pose, poseImage, poseNumber, totalPoses, onRe
                 whiteSpace: 'nowrap',
               }}
             >
-              {d} ⏳
+              {d} <span aria-hidden="true">⏳</span>
             </motion.button>
           ))}
         </div>
         <motion.button
           className="btn btn-secondary"
+          aria-label="Home"
           onClick={onHome}
           whileTap={{ scale: 0.95 }}
           style={{ width: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, lineHeight: 1.2, marginTop: 'clamp(4px, 1svh, 12px)', alignSelf: 'center' }}
         >
-          <span style={{ fontSize: '1.2em' }}>🏠</span>
-          <span style={{ fontSize: '0.7em', letterSpacing: '0.08em', opacity: 0.85 }}>HOME</span>
+          <span aria-hidden="true" style={{ fontSize: '1.2em' }}>🏠</span>
+          <span aria-hidden="true" style={{ fontSize: '0.7em', letterSpacing: '0.08em', opacity: 0.85 }}>HOME</span>
         </motion.button>
       </div>
     </motion.div>

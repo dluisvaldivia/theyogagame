@@ -67,6 +67,8 @@ export default function CountdownScreen({ onComplete, onShowImage }: CountdownSc
           initial="initial"
           animate="animate"
           exit="exit"
+          aria-live="assertive"
+          aria-atomic="true"
           style={{
             position: 'relative',
             zIndex: 1,

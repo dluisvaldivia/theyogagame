@@ -16,6 +16,7 @@ export default function CelebrationFlash({ emoji }: CelebrationFlashProps) {
       style={{ gap: 0, position: 'relative', zIndex: 1 }}
     >
       <motion.div
+        aria-hidden="true"
         initial={{ scale: 0.2, opacity: 0 }}
         animate={{
           scale: [0.2, 1.3, 1],
