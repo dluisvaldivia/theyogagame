@@ -52,8 +52,6 @@ export default function PoseCard({ pose, poseImage, poseNumber, totalPoses, onRe
   return (
     <motion.div
       className="screen"
-      role="region"
-      aria-label={`Pose ${poseNumber} of ${totalPoses}: ${pose.englishName}`}
       variants={variants}
       initial="initial"
       animate="animate"
@@ -67,7 +65,7 @@ export default function PoseCard({ pose, poseImage, poseNumber, totalPoses, onRe
           alt={`${pose.englishName} pose`}
           style={{
             width: '100%',
-            maxHeight: 'clamp(140px, 30svh, 280px)',
+            maxHeight: 'clamp(120px, 24svh, 260px)',
             objectFit: 'contain',
             borderRadius: 16,
             background: '#f8f6ff',
@@ -75,6 +73,7 @@ export default function PoseCard({ pose, poseImage, poseNumber, totalPoses, onRe
         />
 
         <h2
+          tabIndex={0}
           style={{
             fontSize: 'clamp(24px, 7vw, 36px)',
             fontWeight: 900,
@@ -103,6 +102,7 @@ export default function PoseCard({ pose, poseImage, poseNumber, totalPoses, onRe
         <LevelBar difficulty={pose.difficulty as 1 | 2 | 3} />
 
         <p
+          tabIndex={0}
           style={{
             fontSize: 14,
             color: '#555',
@@ -116,7 +116,7 @@ export default function PoseCard({ pose, poseImage, poseNumber, totalPoses, onRe
 
         <motion.button
           className="btn btn-primary"
-          aria-label="Go, start the pose"
+          aria-label="Start the game"
           style={{ width: '100%', fontSize: 'clamp(18px, 4svh, 30px)', padding: 'clamp(10px, 2svh, 20px) 48px', borderRadius: 14, marginTop: 4 }}
           onClick={onReady}
           whileTap={{ scale: 0.97 }}
